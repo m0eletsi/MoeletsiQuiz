@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>
+
+        </title>
+        <link rel="stylesheet" href="CSS.css">
+    </head>
+
+    <body>
+        <div class="WP" id="C4">
+        <h3>Question 3</h3>
+        <img src="FavouriteColour.gif">
+        <p>What is my favourite colour?</p>
+        <button class="C2a">Silver</button>
+        <button class="C2a" data-correct="true">Purple</button>
+        <button class="C2a">Blue</button>
+        <button class="C2a">Red</button>
+        <p id="result"></p>
+        <div id="scoreboard" style="position: fixed; top: 10px; right: 10px; background: #a50000; padding: 5px 10px; border-radius: 5px; font-weight: bold; font-family: sans-serif;">
+  Score: <span id="score">0</span>
+</div>
+        </div>
+            <script>
+    document.addEventListener("DOMContentLoaded", () => {
+    const scoreboard = document.getElementById("score");
+    if (!localStorage.getItem("score")) {
+        localStorage.setItem("score", 0);
+    }
+    scoreboard.textContent = localStorage.getItem("score");
+
+    const buttons = document.querySelectorAll(".C2a");
+    const result = document.getElementById("result");
+
+    buttons.forEach(button => {
+        button.addEventListener("click", (e) => {
+            buttons.forEach(btn => btn.disabled = true);
+
+            let score = Number(localStorage.getItem("score"));
+
+            if (button.dataset.correct === "true") {
+                result.textContent = "Correct";
+                score++;
+                localStorage.setItem("score", score);
+
+                const bonus = document.createElement("div");
+                bonus.classList.add("score-bonus");
+                bonus.textContent = "+1";
+                document.body.appendChild(bonus);
+
+
+                const rect = e.target.getBoundingClientRect();
+                bonus.style.left = `${rect.left + rect.width/2}px`;
+                bonus.style.top = `${rect.top}px`;
+
+                bonus.addEventListener("animationend", () => bonus.remove());
+            } else {
+                result.textContent = "Wrong";
+            }
+
+            scoreboard.textContent = score;
+
+            setTimeout(() => {
+                window.location.href = "4.html";
+            }, 1500);
+        });
+    });
+});
+
+</script>
+    </body>
+</html>

@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>
+
+        </title>
+        <link rel="stylesheet" href="CSS.css">
+    </head>
+
+    <body class="WP">
+        <h2>Game Over!</h2>
+        <img src="GameOver.gif">
+            <p>Your final score: <span id="final-score"></span></p>
+
+    </body>
+    <button id="restart">Play Again</button>
+
+<script>
+document.addEventListener("DOMContentLoaded", () => {
+
+    const finalScore = Number(localStorage.getItem("score")) || 0;
+
+    const scoreElement = document.getElementById("final-score");
+    scoreElement.textContent = finalScore;
+
+    document.getElementById("restart").addEventListener("click", () => {
+
+        localStorage.setItem("score", 0);
+
+        window.location.href = "1.html";
+    });
+
+});
+</script>
+
+</html>
